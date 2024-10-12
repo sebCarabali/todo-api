@@ -27,4 +27,16 @@ public class TodoServiceImpl implements TodoService {
     todo.setUserId(user.getId());
     return todoDAO.create(todo);
   }
+
+  @Override
+  @Transactional
+  public Todo update(Todo todo) {
+    todoDAO.update(todo);
+    return todo;
+  }
+
+  @Override
+  public void delete(int todoId) {
+
+  }
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class TodoDAOImpl implements TodoDAO {
 
   private static final String INSERT_TODO = "INSERT INTO todos (title, description, user_id) VALUES (?, ?, ?)";
+  private static final String UPDATE_TODO = "UPDATE todos SET title = ?, description = ? WHERE id = ?";
 
   private final JdbcTemplate jdbcTemplate;
 
@@ -35,5 +36,16 @@ public class TodoDAOImpl implements TodoDAO {
       todo.setId((Integer) keys.get("id"));
     }
     return todo;
+  }
+
+  @Override
+  public void update(Todo todo) {
+    jdbcTemplate.update(con -> {
+      PreparedStatement ps = con.prepareStatement(UPDATE_TODO, Statement.RETURN_GENERATED_KEYS);
+      ps.setString(1, todo.getTitle());
+      ps.setString(2, todo.getDescription());
+      ps.setLong(3, todo.getId());
+      return ps;
+    });
   }
 }
