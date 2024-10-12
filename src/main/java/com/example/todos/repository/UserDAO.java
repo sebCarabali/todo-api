@@ -1,6 +1,7 @@
 package com.example.todos.repository;
 
 import com.example.todos.model.User;
+import java.util.Optional;
 
 public interface UserDAO {
 
@@ -9,4 +10,6 @@ public interface UserDAO {
   boolean validateUniqueUsername(String username);
 
   void saveUser(User user);
+
+  Optional<User> loadByUsername(String username);
 }

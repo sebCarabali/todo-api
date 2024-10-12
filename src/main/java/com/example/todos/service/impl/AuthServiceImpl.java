@@ -32,6 +32,6 @@ public class AuthServiceImpl implements AuthService {
     // Register user data
     userDAO.saveUser(user);
     // Generate and return token
-    return jwtUtil.encode(user);
+    return jwtUtil.encode(user.getUsername());
   }
 }
