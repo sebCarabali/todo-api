@@ -1,5 +1,6 @@
 package com.example.todos.security;
 
+import com.example.todos.exception.LoginException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -44,7 +45,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
 
         username = claims.getSubject();
       } catch (Exception e) {
-        logger.error("Invalid JWT token", e);
+        throw new LoginException("Invalid JWT token");
       }
     }
 
