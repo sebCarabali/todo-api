@@ -1,4 +1,4 @@
-package com.example.todos.dto;
+package com.example.todos.dto.user;
 
 import java.io.Serializable;
 import lombok.Data;

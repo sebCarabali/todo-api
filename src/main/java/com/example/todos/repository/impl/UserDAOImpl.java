@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
   private static final String CHECK_EMAIL_QUERY = "SELECT COUNT(*) FROM users WHERE email = ?";
   private static final String CHECK_USERNAME_QUERY = "SELECT COUNT(*) FROM users WHERE username = ?";
   private static final String INSERT_QUERY = "INSERT INTO users (email, username, password) VALUES (?, ? ,?)";
-  private static final String LOAD_BY_USERNAME_QUERY = "SELECT username, password FROM users WHERE username = ?";
+  private static final String LOAD_BY_USERNAME_QUERY = "SELECT id, username, password FROM users WHERE username = ?";
 
   private final JdbcTemplate jdbcTemplate;
 
@@ -45,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
       User user = jdbcTemplate.queryForObject(LOAD_BY_USERNAME_QUERY,
           new Object[]{username},
           (rs, rowNum) -> User.builder()
+              .id(rs.getLong("id"))
               .username(rs.getString("username"))
               .password(rs.getString("password"))
               .build());

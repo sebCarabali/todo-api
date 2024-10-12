@@ -1,8 +1,8 @@
 package com.example.todos.controller;
 
-import com.example.todos.dto.LoginRequestDTO;
-import com.example.todos.dto.RegisterUserRequestDTO;
-import com.example.todos.dto.JwtResponse;
+import com.example.todos.dto.user.LoginRequestDTO;
+import com.example.todos.dto.user.RegisterUserRequestDTO;
+import com.example.todos.dto.user.JwtResponse;
 import com.example.todos.model.User;
 import com.example.todos.security.JwtUtil;
 import com.example.todos.service.AuthService;
