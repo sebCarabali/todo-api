@@ -4,6 +4,7 @@ import com.example.todos.model.User;
 import com.example.todos.repository.UserDAO;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,13 +41,17 @@ public class UserDAOImpl implements UserDAO {
 
   @Override
   public Optional<User> loadByUsername(String username) {
-    User user = jdbcTemplate.queryForObject(LOAD_BY_USERNAME_QUERY, new Object[]{username},
-        (rs, rowNum) ->
-            User.builder()
-                .username(rs.getString("username"))
-                .password(rs.getString("password"))
-                .build());
-    return Optional.ofNullable(user);
+    try {
+      User user = jdbcTemplate.queryForObject(LOAD_BY_USERNAME_QUERY,
+          new Object[]{username},
+          (rs, rowNum) -> User.builder()
+              .username(rs.getString("username"))
+              .password(rs.getString("password"))
+              .build());
+      return Optional.ofNullable(user);
+    } catch (EmptyResultDataAccessException e) {
+      return Optional.empty(); // Return an empty Optional if no user is found
+    }
   }
 
   private boolean validateUniqueField(String value, String query) {
