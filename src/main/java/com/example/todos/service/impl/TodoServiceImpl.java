@@ -35,8 +35,9 @@ public class TodoServiceImpl implements TodoService {
     return todo;
   }
 
+  @Transactional
   @Override
   public void delete(int todoId) {
-
+    todoDAO.delete(todoId);
   }
 }
