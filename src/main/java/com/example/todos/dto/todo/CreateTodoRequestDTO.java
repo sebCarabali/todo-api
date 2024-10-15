@@ -1,4 +1,4 @@
-package com.example.todos.dto.dto;
+package com.example.todos.dto.todo;
 
 import java.io.Serializable;
 import lombok.Data;
